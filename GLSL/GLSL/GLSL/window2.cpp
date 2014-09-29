@@ -503,7 +503,6 @@ void Window::Cursor_Callback(GLFWwindow* window, double x, double y)
 //	cursorY = (int)y;
 //}
 
-
 void Window::Initialize(Scene* s, int width, int height){
 	
 
@@ -545,7 +544,6 @@ void Window::Initialize(Scene* s, int width, int height){
 
 	//GLint nExtensions;
 	//glGetIntegerv(GL_NUM_EXTENSIONS, &nExtensions);
-
 	//for (int i = 0; i < nExtensions; i++)
 	//	printf("%s\n", glGetStringi(GL_EXTENSIONS, i));
 
@@ -575,6 +573,8 @@ void Window::Initialize(Scene* s, int width, int height){
 	glfwGetCursorPos(window, &cursor_x, &cursor_y);
 	mouse.Initialize(cursor_x, cursor_y);
 	mainLoop();
+
+
 
 	// Close window and terminate GLFW
 	glfwDestroyWindow(window);

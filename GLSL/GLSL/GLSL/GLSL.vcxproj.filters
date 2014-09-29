@@ -36,6 +36,9 @@
     <ClCompile Include="ply_to_obj.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GLSLProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scene.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ply_io.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLSLProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

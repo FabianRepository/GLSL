@@ -83,6 +83,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="conversion.cpp" />
+    <ClCompile Include="GLSLProgram.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ply_io.c" />
     <ClCompile Include="ply_to_obj.c" />
@@ -92,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="geometry.h" />
+    <ClInclude Include="GLSLProgram.h" />
     <ClInclude Include="graphic-object.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="mouse.h" />
