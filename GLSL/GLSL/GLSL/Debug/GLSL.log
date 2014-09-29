@@ -1,0 +1,83 @@
+﻿Build started 6/5/2014 3:54:29 PM.
+     1>Project "C:\Users\fabian\Dropbox\Fabián\GLSL\GLSL\GLSL\GLSL.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Iinclude /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt conversion.cpp main.cpp scene.cpp shaders.cpp window2.cpp
+         window2.cpp
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\window2.cpp(429): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\window2.cpp(430): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\window2.cpp(435): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\window2.cpp(436): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+         shaders.cpp
+         scene.cpp
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\scene.cpp(32): warning C4305: '=' : truncation from 'double' to 'float'
+         GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
+         main.cpp
+         conversion.cpp
+         Generating Code...
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Iinclude /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt ply_io.c ply_to_obj.c
+         ply_to_obj.c
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_to_obj.c(93): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_to_obj.c(225): warning C4027: function declared without formal parameter list
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_to_obj.c(227): warning C4101: 'j' : unreferenced local variable
+         ply_io.c
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(205): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(112) : see declaration of 'strcpy'
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(208): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(212): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(198): warning C4101: 'elem' : unreferenced local variable
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(196): warning C4101: 'i' : unreferenced local variable
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(337): warning C4101: 'i' : unreferenced local variable
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(339): warning C4101: 'prop' : unreferenced local variable
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(469): warning C4101: 'i' : unreferenced local variable
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(665): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(740): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(112) : see declaration of 'strcpy'
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(743): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(747): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(1314): warning C4101: 'i' : unreferenced local variable
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(1351): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(1353): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(1420): warning C4101: 'i' : unreferenced local variable
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(1556): warning C4101: 'i' : unreferenced local variable
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(1708): warning C4101: 'i' : unreferenced local variable
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(1708): warning C4101: 'j' : unreferenced local variable
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(1920): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(2029): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(2030): warning C4244: '=' : conversion from 'double' to 'unsigned int', possible loss of data
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(2034): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(2035): warning C4244: '=' : conversion from 'double' to 'unsigned int', possible loss of data
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(2111): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(2112): warning C4244: '=' : conversion from 'double' to 'unsigned int', possible loss of data
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(2117): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(2118): warning C4244: '=' : conversion from 'double' to 'unsigned int', possible loss of data
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(2236): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(2322): warning C4101: 'count_type' : unreferenced local variable
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(2321): warning C4101: 'prop_type' : unreferenced local variable
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(2780): warning C4101: 'i' : unreferenced local variable
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(2782): warning C4101: 'prop' : unreferenced local variable
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(3065): warning C4101: 'count' : unreferenced local variable
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(3064): warning C4101: 'i' : unreferenced local variable
+     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\ply_io.c(3158): warning C4013: 'rand_s' undefined; assuming extern returning int
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\fabian\Dropbox\Fabián\GLSL\GLSL\Debug\GLSL.exe" /INCREMENTAL /NOLOGO /LIBPATH:lib32 opengl32.lib glew32.lib glew32s.lib glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\fabian\Dropbox\Fabián\GLSL\GLSL\Debug\GLSL.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\fabian\Dropbox\Fabián\GLSL\GLSL\Debug\GLSL.lib" /MACHINE:X86 Debug\conversion.obj
+         Debug\main.obj
+         Debug\ply_io.obj
+         Debug\ply_to_obj.obj
+         Debug\scene.obj
+         Debug\shaders.obj
+         Debug\window2.obj
+     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+         GLSL.vcxproj -> C:\Users\fabian\Dropbox\Fabián\GLSL\GLSL\Debug\GLSL.exe
+     1>Done Building Project "C:\Users\fabian\Dropbox\Fabián\GLSL\GLSL\GLSL\GLSL.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.74
