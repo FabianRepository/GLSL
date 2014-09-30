@@ -85,6 +85,7 @@ public:
 	void   printActiveAttribs();
 
 	const char * getTypeString(GLenum type);
+
 };
 
 #endif // GLSLPROGRAM_H

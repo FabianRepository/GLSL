@@ -36,7 +36,7 @@ void Scene::Initialize(const int width, const int height)
 	camera.right = vec3(1.f, 0.f, 0.f);// right=direction x up
 	camera.up = vec3(0.f, 1.f, 0.f);
 
-	num_graphic_objects = 0;
+	//num_graphic_objects = 0;
 }
 
 void Camera::rotateUp(vec3 center, float angle)
@@ -104,9 +104,9 @@ void Scene::SetMVP(){
 void Scene::DrawOpenGL(){
 	SetMVP();
 	//lights[0]->DrawOpenGL(this);
-	for (int i = 0; i < num_graphic_objects; i++)
+	for (int i = 0; i < shading_groups.size(); i++)
 	{
-		graphic_objects[i]->DrawOpenGL(this);
+		shading_groups[i]->DrawOpenGL(this);
 	}
 }
 
@@ -116,9 +116,9 @@ void Scene::SetupOpenGL()
 	
 	//ShaderTools::InitializeShaders("vertex_specular_reflection_shader", "fragment_simple_shader", programHandle);
 	//lights[0]->SetupOpenGL();
-	for (int i = 0; i < num_graphic_objects; i++)
+	for (int i = 0; i < shading_groups.size(); i++)
 	{
-		graphic_objects[i]->SetupOpenGL();
+		shading_groups[i]->SetupOpenGL();
 	}
 }
 //
@@ -230,38 +230,38 @@ void Light::rotateY(float angle)
 }
 
 
-void Light::SetupOpenGL()
-{
-	ShaderTools::InitializeShaders("vertex_simple_shader", "fragment_simple_shader", programHandle);
-
-	glGenBuffers(1, &position_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, position_buffer);
-	glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(float), NULL, GL_DYNAMIC_DRAW);
-
-	glGenVertexArrays(1, &vaoHandle);
-	glBindVertexArray(vaoHandle);
-
-	glEnableVertexAttribArray(0);  // Vertex position
-	glBindVertexBuffer(0, position_buffer, 0, sizeof(GLfloat)* 3);
-	glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
-	glVertexAttribBinding(0, 0);
-
-	glVertexAttrib3f(1, 0.f, 0.f, 0.f);
-
-}
-
-void Light::DrawOpenGL(Scene * scene){
-
-	glBindVertexArray(vaoHandle);
-	glBindBuffer(GL_ARRAY_BUFFER, position_buffer);
-	vec4 temp = scene->world_to_camera*vec4(position);
-	vec3 position_to_camera = vec3(temp) / temp[3];
-	glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(float), &position_to_camera[0], GL_STATIC_DRAW);
-	glVertexPointer(3, GL_DOUBLE, 0, 0);
-	glPointSize(3.f);
-	glEnable(GL_POINT_SMOOTH);
-	glColor3f(0.f, 0.f, 0.f);
-	glUseProgram(programHandle);
-	glDrawArrays(GL_POINTS, 0,1);
-
-}
+//void Light::SetupOpenGL()
+//{
+//	ShaderTools::InitializeShaders("vertex_simple_shader", "fragment_simple_shader", programHandle);
+//
+//	glGenBuffers(1, &position_buffer);
+//	glBindBuffer(GL_ARRAY_BUFFER, position_buffer);
+//	glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(float), NULL, GL_DYNAMIC_DRAW);
+//
+//	glGenVertexArrays(1, &vaoHandle);
+//	glBindVertexArray(vaoHandle);
+//
+//	glEnableVertexAttribArray(0);  // Vertex position
+//	glBindVertexBuffer(0, position_buffer, 0, sizeof(GLfloat)* 3);
+//	glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
+//	glVertexAttribBinding(0, 0);
+//
+//	glVertexAttrib3f(1, 0.f, 0.f, 0.f);
+//
+//}
+//
+//void Light::DrawOpenGL(Scene * scene){
+//
+//	glBindVertexArray(vaoHandle);
+//	glBindBuffer(GL_ARRAY_BUFFER, position_buffer);
+//	vec4 temp = scene->world_to_camera*vec4(position);
+//	vec3 position_to_camera = vec3(temp) / temp[3];
+//	glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(float), &position_to_camera[0], GL_STATIC_DRAW);
+//	glVertexPointer(3, GL_DOUBLE, 0, 0);
+//	glPointSize(3.f);
+//	glEnable(GL_POINT_SMOOTH);
+//	glColor3f(0.f, 0.f, 0.f);
+//	glUseProgram(programHandle);
+//	glDrawArrays(GL_POINTS, 0,1);
+//
+//}

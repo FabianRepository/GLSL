@@ -1,101 +1,50 @@
-﻿Build started 6/8/2014 4:49:16 PM.
-     1>Project "C:\Users\fabian\Dropbox\Fabián\GLSL\GLSL\GLSL\GLSL.vcxproj" on node 2 (Rebuild target(s)).
+﻿Build started 9/30/2014 2:27:58 PM.
+     1>Project "C:\Users\fabian\Documents\GitHub\GLSL\GLSL\GLSL\GLSL\GLSL.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Iinclude /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt conversion.cpp main.cpp scene.cpp shaders.cpp window2.cpp
-         conversion.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Iinclude /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
-     1>c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\mesh-filtering.inl(120): warning C4018: '<' : signed/unsigned mismatch
-                 c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\mesh-filtering.inl(116) : while compiling class template member function 'void Mesh<Vertex_Base,HalfEdge_Base,Face_Base,Statistics_Base>::SetVertexNormal(std::vector<HalfEdge *,std::allocator<_Other>>,Vertex &)'
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(57): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(58): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(60): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(62): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(63): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(64): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(85): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(86): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\mesh-filtering.inl(120): warning C4018: '<' : signed/unsigned mismatch
+                 c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\mesh-filtering.inl(116) : while compiling class template member function 'void Mesh<Vertex_Base,HalfEdge_Base,Face_Base,Statistics_Base>::SetVertexNormal(std::vector<HalfEdge *,std::allocator<_Other>>,Vertex &)'
                  with
                  [
                      HalfEdge=HalfEdge_Base
          ,            _Other=HalfEdge_Base *
          ,            Vertex=Vertex_Base
                  ]
-                 c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\mesh-filtering.inl(164) : see reference to function template instantiation 'void Mesh<Vertex_Base,HalfEdge_Base,Face_Base,Statistics_Base>::SetVertexNormal(std::vector<HalfEdge *,std::allocator<_Other>>,Vertex &)' being compiled
+                 c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\mesh-filtering.inl(164) : see reference to function template instantiation 'void Mesh<Vertex_Base,HalfEdge_Base,Face_Base,Statistics_Base>::SetVertexNormal(std::vector<HalfEdge *,std::allocator<_Other>>,Vertex &)' being compiled
                  with
                  [
                      HalfEdge=HalfEdge_Base
          ,            _Other=HalfEdge_Base *
          ,            Vertex=Vertex_Base
                  ]
-                 c:\users\fabian\dropbox\fabián\glsl\glsl\glsl\mesh-rendering.inl(299) : while compiling class template member function 'void Mesh<Vertex_Base,HalfEdge_Base,Face_Base,Statistics_Base>::SetupOpenGL(void)'
+                 c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\mesh-rendering.inl(7) : while compiling class template member function 'void Mesh<Vertex_Base,HalfEdge_Base,Face_Base,Statistics_Base>::SetupOpenGL(void)'
                  main.cpp(24) : see reference to class template instantiation 'Mesh<Vertex_Base,HalfEdge_Base,Face_Base,Statistics_Base>' being compiled
-         scene.cpp
-     1>scene.cpp(32): warning C4305: '=' : truncation from 'double' to 'float'
-     1>scene.cpp(218): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>scene.cpp(219): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>scene.cpp(220): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>scene.cpp(227): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>scene.cpp(228): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>scene.cpp(229): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-         shaders.cpp
-         window2.cpp
-     1>window2.cpp(429): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>window2.cpp(430): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>window2.cpp(434): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>window2.cpp(435): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>window2.cpp(439): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>window2.cpp(440): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Iinclude /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt ply_io.c ply_to_obj.c
-         ply_io.c
-     1>ply_io.c(205): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>ply_io.c(208): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>ply_io.c(212): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>ply_io.c(198): warning C4101: 'elem' : unreferenced local variable
-     1>ply_io.c(196): warning C4101: 'i' : unreferenced local variable
-     1>ply_io.c(337): warning C4101: 'i' : unreferenced local variable
-     1>ply_io.c(339): warning C4101: 'prop' : unreferenced local variable
-     1>ply_io.c(469): warning C4101: 'i' : unreferenced local variable
-     1>ply_io.c(665): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>ply_io.c(740): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>ply_io.c(743): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>ply_io.c(747): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>ply_io.c(1314): warning C4101: 'i' : unreferenced local variable
-     1>ply_io.c(1351): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>ply_io.c(1353): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-     1>ply_io.c(1420): warning C4101: 'i' : unreferenced local variable
-     1>ply_io.c(1556): warning C4101: 'i' : unreferenced local variable
-     1>ply_io.c(1708): warning C4101: 'i' : unreferenced local variable
-     1>ply_io.c(1708): warning C4101: 'j' : unreferenced local variable
-     1>ply_io.c(1920): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>ply_io.c(2029): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>ply_io.c(2030): warning C4244: '=' : conversion from 'double' to 'unsigned int', possible loss of data
-     1>ply_io.c(2034): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>ply_io.c(2035): warning C4244: '=' : conversion from 'double' to 'unsigned int', possible loss of data
-     1>ply_io.c(2111): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>ply_io.c(2112): warning C4244: '=' : conversion from 'double' to 'unsigned int', possible loss of data
-     1>ply_io.c(2117): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>ply_io.c(2118): warning C4244: '=' : conversion from 'double' to 'unsigned int', possible loss of data
-     1>ply_io.c(2236): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>ply_io.c(2322): warning C4101: 'count_type' : unreferenced local variable
-     1>ply_io.c(2321): warning C4101: 'prop_type' : unreferenced local variable
-     1>ply_io.c(2780): warning C4101: 'i' : unreferenced local variable
-     1>ply_io.c(2782): warning C4101: 'prop' : unreferenced local variable
-     1>ply_io.c(3065): warning C4101: 'count' : unreferenced local variable
-     1>ply_io.c(3064): warning C4101: 'i' : unreferenced local variable
-     1>ply_io.c(3158): warning C4013: 'rand_s' undefined; assuming extern returning int
-         ply_to_obj.c
-     1>ply_to_obj.c(93): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>ply_to_obj.c(225): warning C4027: function declared without formal parameter list
-     1>ply_to_obj.c(227): warning C4101: 'j' : unreferenced local variable
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\fabian\Dropbox\Fabián\GLSL\GLSL\Release\GLSL.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:lib32 opengl32.lib glew32.lib glew32s.lib glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\fabian\Dropbox\Fabián\GLSL\GLSL\Release\GLSL.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\fabian\Dropbox\Fabián\GLSL\GLSL\Release\GLSL.lib" /MACHINE:X86 /SAFESEH Release\conversion.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\fabian\Documents\GitHub\GLSL\GLSL\GLSL\Release\GLSL.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:lib32 opengl32.lib glew32.lib glew32s.lib glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\fabian\Documents\GitHub\GLSL\GLSL\GLSL\Release\GLSL.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\fabian\Documents\GitHub\GLSL\GLSL\GLSL\Release\GLSL.lib" /MACHINE:X86 /SAFESEH Release\conversion.obj
+         Release\GLSLProgram.obj
          Release\main.obj
          Release\ply_io.obj
          Release\ply_to_obj.obj
          Release\scene.obj
          Release\shaders.obj
+         "Release\shading-group.obj"
          Release\window2.obj
          Generating code
          Finished generating code
-         GLSL.vcxproj -> C:\Users\fabian\Dropbox\Fabián\GLSL\GLSL\Release\GLSL.exe
-     1>Done Building Project "C:\Users\fabian\Dropbox\Fabián\GLSL\GLSL\GLSL\GLSL.vcxproj" (Rebuild target(s)).
+         GLSL.vcxproj -> C:\Users\fabian\Documents\GitHub\GLSL\GLSL\GLSL\Release\GLSL.exe
+     1>Done Building Project "C:\Users\fabian\Documents\GitHub\GLSL\GLSL\GLSL\GLSL\GLSL.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:03.70
+Time Elapsed 00:00:03.51

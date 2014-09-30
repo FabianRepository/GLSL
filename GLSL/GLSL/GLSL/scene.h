@@ -2,17 +2,18 @@
 #define SCENE_INCLUDE
 
 #include "graphic-object.h"
+#include "GLSLProgram.h"
 
-class  Light : public GraphicObject{
+class  Light{ //: public GraphicObject{
 public:
 	vec3 color;
 	vec4 position;
 	void rotateX(float angle);
 	void rotateY(float angle);
-	void SetupOpenGL();
-	void DrawOpenGL(Scene * scene);
-	GLuint position_buffer;
-	void HandleKeyboardEvent(Prompt  & prompt){}
+	//void SetupOpenGL();
+	//void DrawOpenGL(Scene * scene);
+	//GLuint position_buffer;
+	//void HandleKeyboardEvent(Prompt  & prompt){}
 };
 
 //
@@ -76,6 +77,26 @@ public:
 //	GLuint vaoHandle;
 //};
 
+typedef std::vector<GraphicObject *> GraphicObjectsList;
+
+class ShadingGroup : public GraphicObject{
+public: 
+	ShadingGroup(const char * p_vertex_shader, const char * p_fragment_shader){
+		sprintf(vertex_shader, "%s", p_vertex_shader);
+		sprintf(fragment_shader, "%s", p_fragment_shader);
+	}
+	GLSLProgram shading_program;
+	GLuint program_handle;
+	char vertex_shader[100];
+	char fragment_shader[100];
+	GraphicObjectsList graphic_objects;
+	void SetupOpenGL();
+	void DrawOpenGL(Scene * scene);
+	void HandleKeyboardEvent(Prompt  & prompt){}
+};
+
+typedef std::vector<ShadingGroup *> ShadingGroupList;
+
 class Scene{
 public:
 	//Material ** materials;
@@ -106,8 +127,10 @@ public:
 
 	Light** lights;
 	int lightNum;
-	GraphicObject ** graphic_objects;
-	int num_graphic_objects;
+	//GraphicObject ** graphic_objects;
+	//int num_graphic_objects;
+	ShadingGroupList shading_groups;
+
 
 	mat4 projection_matrix;
 	mat4 world_to_camera;

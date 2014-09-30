@@ -5,7 +5,7 @@
 template<typename Vertex, typename HalfEdge, typename Face, typename Statistics>
 void Mesh<Vertex, HalfEdge, Face, Statistics>::SetupOpenGL()
 {
-	ShaderTools::InitializeShaders("vertex_diffuse_reflection_shader", "fragment_simple_shader", programHandle);
+	//ShaderTools::InitializeShaders("vertex_diffuse_reflection_shader", "fragment_simple_shader", programHandle);
 
 	SetupVertexPositionBuffer();
 	SetupVertexNormalBuffer();
@@ -41,37 +41,37 @@ void Mesh<Vertex, HalfEdge, Face, Statistics>::SetupOpenGL()
 template<typename Vertex, typename HalfEdge, typename Face, typename Statistics>
 void Mesh<Vertex, HalfEdge, Face, Statistics>::DrawOpenGL(Scene * scene){
 	
-	GLuint location = glGetUniformLocation(programHandle, "mvp");
-	if (location >= 0){
-		glUniformMatrix4fv(location, 1, GL_FALSE, &scene->mvp[0][0]);
-	}
-	location = glGetUniformLocation(programHandle, "world_to_camera");
-	if (location >= 0){
-		glUniformMatrix4fv(location, 1, GL_FALSE, &scene->world_to_camera[0][0]);
-	}
-	location = glGetUniformLocation(programHandle, "light_position");
-	if (location >= 0){
-		glUniform4f(location, scene->lights[0]->position[0], scene->lights[0]->position[1], scene->lights[0]->position[2], scene->lights[0]->position[3]);
-	}
-	location = glGetUniformLocation(programHandle, "light_color");
-	if (location >= 0){
-		glUniform3f(location, scene->lights[0]->color[0], scene->lights[0]->color[1], scene->lights[0]->color[2]);
-	}
-	location = glGetUniformLocation(programHandle, "object_to_world");
+	//GLuint location = glGetUniformLocation(programHandle, "mvp");
+	//if (location >= 0){
+	//	glUniformMatrix4fv(location, 1, GL_FALSE, &scene->mvp[0][0]);
+	//}
+	//location = glGetUniformLocation(programHandle, "world_to_camera");
+	//if (location >= 0){
+	//	glUniformMatrix4fv(location, 1, GL_FALSE, &scene->world_to_camera[0][0]);
+	//}
+	//location = glGetUniformLocation(programHandle, "light_position");
+	//if (location >= 0){
+	//	glUniform4f(location, scene->lights[0]->position[0], scene->lights[0]->position[1], scene->lights[0]->position[2], scene->lights[0]->position[3]);
+	//}
+	//location = glGetUniformLocation(programHandle, "light_color");
+	//if (location >= 0){
+	//	glUniform3f(location, scene->lights[0]->color[0], scene->lights[0]->color[1], scene->lights[0]->color[2]);
+	//}
+	GLuint location = glGetUniformLocation(program_handle, "object_to_world");
 	if (location >= 0){
 		glUniformMatrix4fv(location, 1, GL_FALSE, &object_to_world[0][0]);
 	}
-	location = glGetUniformLocation(programHandle, "normal_matrix");
+	location = glGetUniformLocation(program_handle, "normal_matrix");
 	if (location >= 0){
 		glUniformMatrix3fv(location, 1, GL_FALSE, &normal_matrix[0][0]);
 	}
-	location = glGetUniformLocation(programHandle, "shininess");
+	location = glGetUniformLocation(program_handle, "shininess");
 	if (location >= 0){
 		glUniform1f(location, material->shininess);
 	}
 	glBindVertexArray(vaoHandle);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, face_index_buffer);
-	glUseProgram(programHandle);
+	//glUseProgram(programHandle);
 	glDrawElements(GL_TRIANGLES, 3 * faces.size(), GL_UNSIGNED_INT, 0);
 }
 
@@ -207,30 +207,30 @@ void Mesh<Vertex, HalfEdge, Face, Statistics>::SetupVertexNormalBuffer()
 	delete normal_coordinates;
 }
 
-template<typename Vertex, typename HalfEdge, typename Face, typename Statistics>
-void Mesh<Vertex, HalfEdge, Face, Statistics>::VertexColorAssignation(Vertex & vertex, int index, double * external_array)
-{
-	const Point<3> color = vertex.color;
-	external_array[3 * index] = color[0];
-	external_array[3 * index + 1] = color[1];
-	external_array[3 * index + 2] = color[2];
-}
-
-template<typename Vertex, typename HalfEdge, typename Face, typename Statistics>
-void Mesh<Vertex, HalfEdge, Face, Statistics>::SetupVertexColorBuffer()
-{
-	if (glIsBuffer(vertex_color_buffer))
-	{
-		glDeleteBuffers(1, &vertex_color_buffer);
-	}
-	int num_vertices = vertices.size();
-	double * color_coordinates = new  double[3 * num_vertices];
-
-	VertexAssignation<double *> vertex_color_assignation = &Mesh<Vertex, HalfEdge, Face, Statistics>::VertexColorAssignation;
-	VertexAssignationTraverse<double *>(vertex_color_assignation, color_coordinates);
-
-	glGenBuffers(1, &vertex_color_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertex_color_buffer);
-	glBufferData(GL_ARRAY_BUFFER, 3 * num_vertices*sizeof(double), color_coordinates, GL_STATIC_DRAW);
-	delete color_coordinates;
-}
+//template<typename Vertex, typename HalfEdge, typename Face, typename Statistics>
+//void Mesh<Vertex, HalfEdge, Face, Statistics>::VertexColorAssignation(Vertex & vertex, int index, double * external_array)
+//{
+//	const Point<3> color = vertex.color;
+//	external_array[3 * index] = color[0];
+//	external_array[3 * index + 1] = color[1];
+//	external_array[3 * index + 2] = color[2];
+//}
+//
+//template<typename Vertex, typename HalfEdge, typename Face, typename Statistics>
+//void Mesh<Vertex, HalfEdge, Face, Statistics>::SetupVertexColorBuffer()
+//{
+//	if (glIsBuffer(vertex_color_buffer))
+//	{
+//		glDeleteBuffers(1, &vertex_color_buffer);
+//	}
+//	int num_vertices = vertices.size();
+//	double * color_coordinates = new  double[3 * num_vertices];
+//
+//	VertexAssignation<double *> vertex_color_assignation = &Mesh<Vertex, HalfEdge, Face, Statistics>::VertexColorAssignation;
+//	VertexAssignationTraverse<double *>(vertex_color_assignation, color_coordinates);
+//
+//	glGenBuffers(1, &vertex_color_buffer);
+//	glBindBuffer(GL_ARRAY_BUFFER, vertex_color_buffer);
+//	glBufferData(GL_ARRAY_BUFFER, 3 * num_vertices*sizeof(double), color_coordinates, GL_STATIC_DRAW);
+//	delete color_coordinates;
+//}

@@ -38,7 +38,7 @@ public:
 	virtual void HandleKeyboardEvent(Prompt  & prompt) = 0;
 	mat4 object_to_world;
 	mat3 normal_matrix;
-	GLuint programHandle;
+	GLuint program_handle;
 	GLuint vaoHandle;
 	Material * material;
 };

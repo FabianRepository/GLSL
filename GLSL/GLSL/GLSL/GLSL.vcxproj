@@ -89,6 +89,7 @@
     <ClCompile Include="ply_to_obj.c" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="shaders.cpp" />
+    <ClCompile Include="shading-group.cpp" />
     <ClCompile Include="window2.cpp" />
   </ItemGroup>
   <ItemGroup>

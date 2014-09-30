@@ -34,9 +34,14 @@ int main(int argc, char *argv[])
 
 	mesh->material = material;
 
-	scene.graphic_objects = new  GraphicObject *[1];
-	scene.graphic_objects[0] = mesh;
-	scene.num_graphic_objects = 1;
+	ShadingGroup * shading_group = new ShadingGroup("shaders/diffuse_reflection.vert", "shaders/basic.frag");
+	shading_group->graphic_objects.push_back(mesh);
+
+	scene.shading_groups.push_back(shading_group);
+
+	//scene.graphic_objects = new  GraphicObject *[1];
+	//scene.graphic_objects[0] = mesh;
+	//scene.num_graphic_objects = 1;
 	
 	Light * light = new Light;
 	light->color = vec3(1.f, 1.f, 1.f);
