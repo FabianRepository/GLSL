@@ -4,18 +4,40 @@
 #include "graphic-object.h"
 #include "GLSLProgram.h"
 
+const mat4 shadowBias = mat4(vec4(0.5f, 0.0f, 0.0f, 0.0f),
+							  vec4(0.0f, 0.5f, 0.0f, 0.0f),
+							  vec4(0.0f, 0.0f, 0.5f, 0.0f),
+							  vec4(0.5f, 0.5f, 0.5f, 1.0f));
+
 class  Light{ //: public GraphicObject{
 public:
 	vec3 color;
-	vec4 position;
-	void rotateX(float angle);
-	void rotateY(float angle);
+	mat4 biased_light_view_projection; // directed towards the scene center
+	virtual void rotateX(float angle) = 0;
+	virtual void rotateY(float angle) = 0;
+	virtual void SetLightViewProjection(vec3 scene_center, float scene_radius) = 0;
 	//void SetupOpenGL();
 	//void DrawOpenGL(Scene * scene);
 	//GLuint position_buffer;
 	//void HandleKeyboardEvent(Prompt  & prompt){}
 };
 
+
+class PointLight : public Light{
+public:
+	vec3 position;
+	void rotateX(float angle);
+	void rotateY(float angle);
+	void SetLightViewProjection(vec3 scene_center, float scene_radius);
+};
+
+class DirectionalLight : public Light{
+public:
+	vec3 direction;
+	void rotateX(float angle);
+	void rotateY(float angle);
+	void SetLightViewProjection(vec3 scene_center, float scene_radius);
+};
 //
 //class Material {
 //public:
@@ -96,7 +118,8 @@ public:
 };
 
 typedef std::vector<ShadingGroup *> ShadingGroupList;
-
+typedef std::vector<PointLight *> PointLightList;
+typedef std::vector<DirectionalLight *> DirectionalLightList;
 class Scene{
 public:
 	//Material ** materials;
@@ -117,7 +140,7 @@ public:
 
 	//double current_time;
 	//
-	void Initialize(const int width, const int height);
+	void Initialize(const int width, const int height, const float p_radius, const vec3 p_center);
 	Camera camera;
 	void SetWorldToCamera();
 	void SetProjectionMatrix();
@@ -125,8 +148,8 @@ public:
 	void SetupOpenGL();
 	void DrawOpenGL();
 
-	Light** lights;
-	int lightNum;
+	PointLightList point_lights;
+	DirectionalLightList directional_lights;
 	//GraphicObject ** graphic_objects;
 	//int num_graphic_objects;
 	ShadingGroupList shading_groups;
@@ -135,6 +158,9 @@ public:
 	mat4 projection_matrix;
 	mat4 world_to_camera;
 	mat4 mvp;
+
+	vec3 center;
+	float radius;
 	////MeshObject * mesh;
 	///** The root of the scene-graph */
 	////class StaticRayGroup* group;

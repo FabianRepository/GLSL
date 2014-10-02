@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	}
 
 	//Initialize Scene
-	scene.Initialize(width, height);
+	scene.Initialize(width, height,5.f, vec3(0.f,0.f,0.f));
 	Mesh<Vertex_Base, HalfEdge_Base, Face_Base, Statistics_Base> * mesh = new Mesh<Vertex_Base, HalfEdge_Base, Face_Base, Statistics_Base>();
 	mesh->ConstructMeshFromPlyFile(argv[1]);
 	mesh->GeometryInitialization();
@@ -43,14 +43,11 @@ int main(int argc, char *argv[])
 	//scene.graphic_objects[0] = mesh;
 	//scene.num_graphic_objects = 1;
 	
-	Light * light = new Light;
-	light->color = vec3(1.f, 1.f, 1.f);
-	light->position = vec4(-1.f, -1.f, -1.f, 0.f);
+	DirectionalLight * directional_light = new DirectionalLight;
+	directional_light->color = vec3(1.f, 1.f, 1.f);
+	directional_light->direction = vec3(-1.f, -1.f, -1.f);
 
-	Light ** scene_lights = new  Light *[1];
-	scene_lights[0] = light;
-	scene.lights = scene_lights;
-	scene.lightNum = 1;
+	scene.directional_lights.push_back(directional_light);
 
 	//Initialize Window
 	main_window.Initialize(&scene, width, height);

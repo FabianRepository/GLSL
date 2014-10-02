@@ -27,7 +27,7 @@ void Scene::SetWorldToCamera()
 	world_to_camera = glm::lookAt(camera.position, camera.position + camera.direction, camera.up);
 }
 
-void Scene::Initialize(const int width, const int height)
+void Scene::Initialize(const int width, const int height, const float p_radius, const vec3 p_center)
 {
 	camera.heightAngle = PI / 6.f;
 	camera.aspectRatio = static_cast<float>(width) / static_cast<float>(height);
@@ -35,6 +35,9 @@ void Scene::Initialize(const int width, const int height)
 	camera.position = vec3(0.f, 0.f, 6.f);
 	camera.right = vec3(1.f, 0.f, 0.f);// right=direction x up
 	camera.up = vec3(0.f, 1.f, 0.f);
+
+	radius = p_radius;
+	center = p_center;
 
 	//num_graphic_objects = 0;
 }
@@ -211,7 +214,7 @@ void Scene::SetProjectionMatrix()
 //	glDrawArrays(GL_TRIANGLES, 0, 3);
 //}
 
-void Light::rotateX(float angle)
+void PointLight::rotateX(float angle)
 {
 	Point<3> previous_pos = Point<3>(position[0], position[1], position[2]);
 	Point<3> new_pos = CentralizedRotation(Point<3>(), Point<3>(1.f, 0.f, 0.f), previous_pos, angle);
@@ -220,13 +223,50 @@ void Light::rotateX(float angle)
 	position[2] = new_pos[2];
 }
 
-void Light::rotateY(float angle)
+void PointLight::rotateY(float angle)
 {
 	Point<3> previous_pos = Point<3>(position[0], position[1], position[2]);
 	Point<3> new_pos = CentralizedRotation(Point<3>(), Point<3>(0.f, 1.f, 0.f), previous_pos, angle);
 	position[0] = new_pos[0];
 	position[1] = new_pos[1];
 	position[2] = new_pos[2];
+}
+
+void PointLight::SetLightViewProjection(vec3 scene_center, float scene_radius)
+{
+	mat4 light_view = glm::lookAt(position, scene_center, vec3(0.f, 1.f, 0.f));
+	mat4 light_proj = glm::frustum(-scene_radius, scene_radius, -scene_radius, scene_radius, 0.01f*scene_radius, 2.f*scene_radius);
+
+	biased_light_view_projection = shadowBias * light_proj * light_view;
+
+}
+
+void DirectionalLight::rotateX(float angle)
+{
+	Point<3> previous_pos = Point<3>(direction[0], direction[1], direction[2]);
+	Point<3> new_pos = CentralizedRotation(Point<3>(), Point<3>(1.f, 0.f, 0.f), previous_pos, angle);
+	direction[0] = new_pos[0];
+	direction[1] = new_pos[1];
+	direction[2] = new_pos[2];
+}
+
+void DirectionalLight::rotateY(float angle)
+{
+	Point<3> previous_pos = Point<3>(direction[0], direction[1], direction[2]);
+	Point<3> new_pos = CentralizedRotation(Point<3>(), Point<3>(0.f, 1.f, 0.f), previous_pos, angle);
+	direction[0] = new_pos[0];
+	direction[1] = new_pos[1];
+	direction[2] = new_pos[2];
+}
+
+void DirectionalLight::SetLightViewProjection(vec3 scene_center, float scene_radius)
+{
+	vec3 artificial_position = glm::normalize(-direction)*(float)scene_radius;
+	mat4 light_view = glm::lookAt(artificial_position, scene_center, vec3(0.f, 1.f, 0.f));
+	mat4 light_proj = glm::ortho(-scene_radius, scene_radius, -scene_radius, scene_radius, 0.01f*scene_radius, 2.f*scene_radius);
+
+	biased_light_view_projection = shadowBias * light_proj * light_view;
+
 }
 
 

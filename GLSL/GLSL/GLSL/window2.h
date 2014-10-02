@@ -42,9 +42,6 @@ public:
 	/** Is the window visible */
 	static int isVisible;
 
-	static vec3 center;
-	static double radius;
-
 	static void Mouse_Callback(GLFWwindow* window, int button, int action, int mods);
 	static void Cursor_Callback(GLFWwindow* window, double x, double y);
 	static void mainLoop();

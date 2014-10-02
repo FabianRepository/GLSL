@@ -8,8 +8,6 @@ GLFWwindow* Window::window = NULL;
 Scene* Window::scene = NULL;
 Mouse Window::mouse;
 int Window::isVisible;
-vec3 Window::center;
-double Window::radius;
 
 //double Window::frameRate;
 //double Window::frameCountStart;
@@ -426,22 +424,20 @@ void Window::Cursor_Callback(GLFWwindow* window, double x, double y)
 
 		if (mouse.active_button == LEFT_BUTTON)
 		{
-			scene->camera.rotateUp(center, 0.001f*displacement_x);
-			scene->camera.rotateRight(center, 0.001f*displacement_y);
+			scene->camera.rotateUp(scene->center, 0.001f*displacement_x);
+			scene->camera.rotateRight(scene->center, 0.001f*displacement_y);
 		}
 		else if (mouse.active_button == MIDDLE_BUTTON)
 		{
-			scene->lights[0]->rotateX(0.001f*displacement_x);
-			scene->lights[0]->rotateY(0.001f*displacement_y);
+			scene->directional_lights[0]->rotateX(0.001f*displacement_x);
+			scene->directional_lights[0]->rotateY(0.001f*displacement_y);
 		}
 		else if (mouse.active_button == RIGHT_BUTTON)
 		{
-			scene->camera.moveRight(-radius * displacement_x / 2500.f);
-			scene->camera.moveUp(radius * displacement_y / 2500.f);
+			scene->camera.moveRight(-scene->radius * displacement_x / 2500.f);
+			scene->camera.moveUp(scene->radius * displacement_y / 2500.f);
 		}
-
 	}
-
 	mouse.cursor_x = x;
 	mouse.cursor_y = y;
 }
@@ -561,9 +557,6 @@ void Window::Initialize(Scene* s, int width, int height){
 	scene = s;
 	scene->SetupOpenGL();
 
-	center = vec3(0.f, 0.f, 0.f);
-	radius = 5.f;
-
 	glfwSetMouseButtonCallback(window,Mouse_Callback);
 	glfwSetCursorPosCallback(window,Cursor_Callback);
 
@@ -573,8 +566,6 @@ void Window::Initialize(Scene* s, int width, int height){
 	glfwGetCursorPos(window, &cursor_x, &cursor_y);
 	mouse.Initialize(cursor_x, cursor_y);
 	mainLoop();
-
-
 
 	// Close window and terminate GLFW
 	glfwDestroyWindow(window);
