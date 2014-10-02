@@ -27,7 +27,7 @@ void Scene::SetWorldToCamera()
 	world_to_camera = glm::lookAt(camera.position, camera.position + camera.direction, camera.up);
 }
 
-void Scene::Initialize(const int width, const int height, const float p_radius, const vec3 p_center)
+void Scene::Initialize(const int width, const int height, const int p_shadow_map_width, const int p_shadow_map_height, const float p_radius, const vec3 p_center)
 {
 	camera.heightAngle = PI / 6.f;
 	camera.aspectRatio = static_cast<float>(width) / static_cast<float>(height);
@@ -38,6 +38,9 @@ void Scene::Initialize(const int width, const int height, const float p_radius, 
 
 	radius = p_radius;
 	center = p_center;
+
+	shadow_map_width = p_shadow_map_width;
+	shadow_map_height = p_shadow_map_height;
 
 	//num_graphic_objects = 0;
 }
@@ -113,16 +116,55 @@ void Scene::DrawOpenGL(){
 	}
 }
 
+void Scene::SetShadowBuffer()
+{
+	GLfloat border[] = { 1.0f, 0.0f, 0.0f, 0.0f };
+	// The depth buffer texture
+	GLuint depthTex;
+	glGenTextures(1, &depthTex);
+	glBindTexture(GL_TEXTURE_2D, depthTex);
+	glTexStorage2D(GL_TEXTURE_2D, 1, GL_DEPTH_COMPONENT24, shadow_map_width, shadow_map_height);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LESS);
+
+	// Assign the depth buffer texture to texture channel 0
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, depthTex);
+
+	// Create and set up the FBO
+	glGenFramebuffers(1, &shadow_buffer);
+	glBindFramebuffer(GL_FRAMEBUFFER, shadow_buffer);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
+		GL_TEXTURE_2D, depthTex, 0);
+
+	GLenum drawBuffers[] = { GL_NONE };
+	glDrawBuffers(1, drawBuffers);
+
+	GLenum result = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+	if (result == GL_FRAMEBUFFER_COMPLETE) {
+		printf("Framebuffer is complete.\n");
+	}
+	else {
+		printf("Framebuffer is not complete.\n");
+	}
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
 void Scene::SetupOpenGL()
 {
 	//ShaderTools::InitializeShaders("vertex_simple_shader", "fragment_simple_shader", programHandle);
 	
 	//ShaderTools::InitializeShaders("vertex_specular_reflection_shader", "fragment_simple_shader", programHandle);
 	//lights[0]->SetupOpenGL();
-	for (int i = 0; i < shading_groups.size(); i++)
-	{
+	for (int i = 0; i < shading_groups.size(); i++){
 		shading_groups[i]->SetupOpenGL();
 	}
+	//SetShadowBuffer();
 }
 //
 //void Scene::setCurrentTime(double t)

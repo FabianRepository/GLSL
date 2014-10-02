@@ -8,6 +8,8 @@ using std::string;
 
 const int width = 500;
 const int height = 500;
+const int shadowMapWidth = 512;
+const int shadowMapHeight = 512;
 Window main_window;
 Scene scene;
 
@@ -20,7 +22,7 @@ int main(int argc, char *argv[])
 	}
 
 	//Initialize Scene
-	scene.Initialize(width, height,5.f, vec3(0.f,0.f,0.f));
+	scene.Initialize(width, height, shadowMapWidth, shadowMapHeight, 5.f, vec3(0.f, 0.f, 0.f));
 	Mesh<Vertex_Base, HalfEdge_Base, Face_Base, Statistics_Base> * mesh = new Mesh<Vertex_Base, HalfEdge_Base, Face_Base, Statistics_Base>();
 	mesh->ConstructMeshFromPlyFile(argv[1]);
 	mesh->GeometryInitialization();
@@ -34,6 +36,7 @@ int main(int argc, char *argv[])
 
 	mesh->material = material;
 
+	//ShadingGroup * shading_group = new ShadingGroup("shaders/shadowmap.vs", "shaders/shadowmap.fs");
 	ShadingGroup * shading_group = new ShadingGroup("shaders/diffuse_reflection.vert", "shaders/basic.frag");
 	shading_group->graphic_objects.push_back(mesh);
 
