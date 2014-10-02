@@ -1,4 +1,4 @@
-﻿Build started 10/1/2014 7:56:21 PM.
+﻿Build started 10/2/2014 10:33:53 AM.
      1>Project "C:\Users\fabian\Documents\GitHub\GLSL\GLSL\GLSL\GLSL\GLSL.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Iinclude /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp scene.cpp "shading-group.cpp" window2.cpp
@@ -9,9 +9,9 @@
      1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(62): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
      1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(63): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
      1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(64): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(100): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(107): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
-     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(101): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(108): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
      1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\mesh-filtering.inl(120): warning C4018: '<' : signed/unsigned mismatch
                  c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\mesh-filtering.inl(116) : while compiling class template member function 'void Mesh<Vertex_Base,HalfEdge_Base,Face_Base,Statistics_Base>::SetVertexNormal(std::vector<HalfEdge *,std::allocator<_Other>>,Vertex &)'
@@ -37,9 +37,9 @@
      1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(62): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
      1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(63): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
      1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(64): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(100): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(107): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
-     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(101): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(108): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
      1>scene.cpp(32): warning C4305: '=' : truncation from 'double' to 'float'
      1>scene.cpp(110): warning C4018: '<' : signed/unsigned mismatch
@@ -50,12 +50,12 @@
      1>scene.cpp(230): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
      1>scene.cpp(231): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
      1>scene.cpp(232): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>scene.cpp(239): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>scene.cpp(240): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>scene.cpp(241): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
      1>scene.cpp(248): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
      1>scene.cpp(249): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
      1>scene.cpp(250): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>scene.cpp(257): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>scene.cpp(258): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>scene.cpp(259): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
          GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
          shading-group.cpp
      1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(57): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
@@ -64,9 +64,9 @@
      1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(62): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
      1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(63): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
      1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(64): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(100): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(107): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
-     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(101): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(108): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
      1>shading-group.cpp(23): warning C4018: '<' : signed/unsigned mismatch
      1>shading-group.cpp(42): warning C4018: '<' : signed/unsigned mismatch
@@ -77,9 +77,9 @@
      1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(62): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
      1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(63): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
      1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\GLSLProgram.h(64): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(100): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(107): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
-     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(101): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\fabian\documents\github\glsl\glsl\glsl\glsl\scene.h(108): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : see declaration of 'sprintf'
      1>window2.cpp(427): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
      1>window2.cpp(428): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
@@ -104,4 +104,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.36
+Time Elapsed 00:00:04.60
