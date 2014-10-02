@@ -2,7 +2,8 @@
 #define GRAPHIC_OBJECT_INCLUDE
 
 #include "geometry.h"
-#include "shaders.h"
+//#include "shaders.h"
+#include "GLSLProgram.h"
 
 class Scene;
 
@@ -38,7 +39,8 @@ public:
 	virtual void HandleKeyboardEvent(Prompt  & prompt) = 0;
 	mat4 object_to_world;
 	mat3 normal_matrix;
-	GLuint program_handle;
+	//GLuint program_handle;
+	GLSLProgram * glsl_program;
 	GLuint vaoHandle;
 	Material * material;
 };

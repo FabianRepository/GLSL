@@ -140,12 +140,13 @@ public:
 
 	//double current_time;
 	//
-	void Initialize(const int width, const int height, const float p_radius, const vec3 p_center);
+	void Initialize(const int width, const int height, const int p_shadow_map_width, const int p_shadow_map_height, const float p_radius, const vec3 p_center);
 	Camera camera;
 	void SetWorldToCamera();
 	void SetProjectionMatrix();
 	void SetMVP();
 	void SetupOpenGL();
+	void SetShadowBuffer();
 	void DrawOpenGL();
 
 	PointLightList point_lights;
@@ -154,6 +155,9 @@ public:
 	//int num_graphic_objects;
 	ShadingGroupList shading_groups;
 
+	int shadow_map_width;
+	int shadow_map_height;
+	GLuint shadow_buffer;
 
 	mat4 projection_matrix;
 	mat4 world_to_camera;

@@ -57,18 +57,25 @@ void Mesh<Vertex, HalfEdge, Face, Statistics>::DrawOpenGL(Scene * scene){
 	//if (location >= 0){
 	//	glUniform3f(location, scene->lights[0]->color[0], scene->lights[0]->color[1], scene->lights[0]->color[2]);
 	//}
-	GLuint location = glGetUniformLocation(program_handle, "object_to_world");
-	if (location >= 0){
-		glUniformMatrix4fv(location, 1, GL_FALSE, &object_to_world[0][0]);
-	}
-	location = glGetUniformLocation(program_handle, "normal_matrix");
-	if (location >= 0){
-		glUniformMatrix3fv(location, 1, GL_FALSE, &normal_matrix[0][0]);
-	}
-	location = glGetUniformLocation(program_handle, "shininess");
-	if (location >= 0){
-		glUniform1f(location, material->shininess);
-	}
+
+
+	//GLuint location = glGetUniformLocation(program_handle, "object_to_world");
+	//if (location >= 0){
+	//	glUniformMatrix4fv(location, 1, GL_FALSE, &object_to_world[0][0]);
+	//}
+	//location = glGetUniformLocation(program_handle, "normal_matrix");
+	//if (location >= 0){
+	//	glUniformMatrix3fv(location, 1, GL_FALSE, &normal_matrix[0][0]);
+	//}
+	//location = glGetUniformLocation(program_handle, "shininess");
+	//if (location >= 0){
+	//	glUniform1f(location, material->shininess);
+	//}
+
+	glsl_program->setUniform("object_to_world", object_to_world);
+	glsl_program->setUniform("normal_matrix", normal_matrix);
+	glsl_program->setUniform("shininess", material->shininess);
+
 	glBindVertexArray(vaoHandle);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, face_index_buffer);
 	//glUseProgram(programHandle);
