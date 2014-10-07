@@ -27,12 +27,15 @@ void Scene::SetWorldToCamera()
 	world_to_camera = glm::lookAt(camera.position, camera.position + camera.direction, camera.up);
 }
 
-void Scene::Initialize(const int width, const int height, const int p_shadow_map_width, const int p_shadow_map_height, const float p_radius, const vec3 p_center)
+void Scene::Initialize(const int p_width, const int p_height, const int p_shadow_map_width, const int p_shadow_map_height, const float p_radius, const vec3 p_center, const vec3 p_ambient_light)
 {
+	width = p_width;
+	height = p_height;
+
 	camera.heightAngle = PI / 6.f;
 	camera.aspectRatio = static_cast<float>(width) / static_cast<float>(height);
+	camera.position = vec3(0.f, 0.f, 2.f);
 	camera.direction = vec3(0.f, 0.f, -1.f);
-	camera.position = vec3(0.f, 0.f, 6.f);
 	camera.right = vec3(1.f, 0.f, 0.f);// right=direction x up
 	camera.up = vec3(0.f, 1.f, 0.f);
 
@@ -42,7 +45,14 @@ void Scene::Initialize(const int width, const int height, const int p_shadow_map
 	shadow_map_width = p_shadow_map_width;
 	shadow_map_height = p_shadow_map_height;
 
+	ambient_light = p_ambient_light;
 	//num_graphic_objects = 0;
+
+	offset_buffer_side = 8;
+	offset_buffer_u = 4;
+	offset_buffer_v = 4;
+	shadow_sampling_radius = 2.f;
+
 }
 
 void Camera::rotateUp(vec3 center, float angle)
@@ -109,6 +119,8 @@ void Scene::SetMVP(){
 
 void Scene::DrawOpenGL(){
 	SetMVP();
+	directional_lights[0]->SetLightTransformation(center, radius);
+
 	//lights[0]->DrawOpenGL(this);
 	for (int i = 0; i < shading_groups.size(); i++)
 	{
@@ -120,27 +132,21 @@ void Scene::SetShadowBuffer()
 {
 	GLfloat border[] = { 1.0f, 0.0f, 0.0f, 0.0f };
 	// The depth buffer texture
-	GLuint depthTex;
-	glGenTextures(1, &depthTex);
-	glBindTexture(GL_TEXTURE_2D, depthTex);
+	glGenTextures(1, &shadow_depth_buffer);
+	glBindTexture(GL_TEXTURE_2D, shadow_depth_buffer);
 	glTexStorage2D(GL_TEXTURE_2D, 1, GL_DEPTH_COMPONENT24, shadow_map_width, shadow_map_height);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LESS);
 
-	// Assign the depth buffer texture to texture channel 0
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, depthTex);
-
 	// Create and set up the FBO
-	glGenFramebuffers(1, &shadow_buffer);
-	glBindFramebuffer(GL_FRAMEBUFFER, shadow_buffer);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
-		GL_TEXTURE_2D, depthTex, 0);
+	glGenFramebuffers(1, &shadow_frame_buffer_handle);
+	glBindFramebuffer(GL_FRAMEBUFFER, shadow_frame_buffer_handle);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,GL_TEXTURE_2D, shadow_depth_buffer, 0);
 
 	GLenum drawBuffers[] = { GL_NONE };
 	glDrawBuffers(1, drawBuffers);
@@ -155,6 +161,65 @@ void Scene::SetShadowBuffer()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
+float jitter() {
+	return ((float)rand() / RAND_MAX) - 0.5f;
+}
+
+void Scene::SetOffsetTexture(int size, int samplesU, int samplesV)
+{
+	int samples = samplesU * samplesV;
+	int bufSize = size * size * samples * 2;
+	float *data = new float[bufSize];
+
+	for (int i = 0; i< size; i++) {
+		for (int j = 0; j < size; j++) {
+			for (int k = 0; k < samples; k += 2) {
+				int x1, y1, x2, y2;
+				x1 = k % (samplesU);
+				y1 = (samples - 1 - k) / samplesU;
+				x2 = (k + 1) % samplesU;
+				y2 = (samples - 1 - k - 1) / samplesU;
+
+				vec4 v;
+				// Center on grid and jitter
+				v.x = (x1 + 0.5f) + jitter();
+				v.y = (y1 + 0.5f) + jitter();
+				v.z = (x2 + 0.5f) + jitter();
+				v.w = (y2 + 0.5f) + jitter();
+				// Scale between 0 and 1
+				v.x /= samplesU;
+				v.y /= samplesV;
+				v.z /= samplesU;
+				v.w /= samplesV;
+				// Warp to disk
+				int cell = ((k / 2) * size * size + j *
+					size + i) * 4;
+				data[cell + 0] = sqrtf(v.y) * cosf(2.f*PI*v.x) / (float) shadow_map_width;
+				data[cell + 1] = sqrtf(v.y) * sinf(2.f*PI*v.x) / (float) shadow_map_height;
+				data[cell + 2] = sqrtf(v.w) * cosf(2.f*PI*v.z) / (float) shadow_map_width;
+				data[cell + 3] = sqrtf(v.w) * sinf(2.f*PI*v.z) / (float) shadow_map_height;
+			}
+		}
+	}
+
+	//for (int i = 0; i < samplesU*samplesV*2; i += 2){
+	//	printf("(%f,%f)\n",data[i], data[i + 1]);
+	//}
+
+	glGenTextures(1, &offset_buffer);
+	glBindTexture(GL_TEXTURE_3D, offset_buffer);
+	glTexStorage3D(GL_TEXTURE_3D, 1, GL_RGBA32F, size, size,
+		samples / 2);
+	glTexSubImage3D(GL_TEXTURE_3D, 0, 0, 0, 0, size, size,
+		samples / 2, GL_RGBA, GL_FLOAT, data);
+	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER,
+		GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER,
+		GL_NEAREST);
+	delete[] data;
+}
+
+
 void Scene::SetupOpenGL()
 {
 	//ShaderTools::InitializeShaders("vertex_simple_shader", "fragment_simple_shader", programHandle);
@@ -164,8 +229,11 @@ void Scene::SetupOpenGL()
 	for (int i = 0; i < shading_groups.size(); i++){
 		shading_groups[i]->SetupOpenGL();
 	}
-	//SetShadowBuffer();
+	SetShadowBuffer();
+	SetOffsetTexture(offset_buffer_side,offset_buffer_u,offset_buffer_v);
 }
+
+
 //
 //void Scene::setCurrentTime(double t)
 //{
@@ -274,13 +342,10 @@ void PointLight::rotateY(float angle)
 	position[2] = new_pos[2];
 }
 
-void PointLight::SetLightViewProjection(vec3 scene_center, float scene_radius)
+void PointLight::SetLightTransformation(vec3 scene_center, float scene_radius)
 {
-	mat4 light_view = glm::lookAt(position, scene_center, vec3(0.f, 1.f, 0.f));
-	mat4 light_proj = glm::frustum(-scene_radius, scene_radius, -scene_radius, scene_radius, 0.01f*scene_radius, 2.f*scene_radius);
-
-	biased_light_view_projection = shadowBias * light_proj * light_view;
-
+	light_view = glm::lookAt(position, scene_center, vec3(0.f, 1.f, 0.f));
+	light_projection = glm::frustum(-scene_radius, scene_radius, -scene_radius, scene_radius, 0.01f*scene_radius, 2.f*scene_radius);
 }
 
 void DirectionalLight::rotateX(float angle)
@@ -301,14 +366,11 @@ void DirectionalLight::rotateY(float angle)
 	direction[2] = new_pos[2];
 }
 
-void DirectionalLight::SetLightViewProjection(vec3 scene_center, float scene_radius)
+void DirectionalLight::SetLightTransformation(vec3 scene_center, float scene_radius)
 {
 	vec3 artificial_position = glm::normalize(-direction)*(float)scene_radius;
-	mat4 light_view = glm::lookAt(artificial_position, scene_center, vec3(0.f, 1.f, 0.f));
-	mat4 light_proj = glm::ortho(-scene_radius, scene_radius, -scene_radius, scene_radius, 0.01f*scene_radius, 2.f*scene_radius);
-
-	biased_light_view_projection = shadowBias * light_proj * light_view;
-
+	light_view = glm::lookAt(artificial_position, scene_center, vec3(0.f, 1.f, 0.f));
+	light_projection = glm::ortho(-scene_radius, scene_radius, -scene_radius, scene_radius, 0.01f*scene_radius, 2.f*scene_radius);
 }
 
 

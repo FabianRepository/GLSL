@@ -198,7 +198,7 @@ void GLSLProgram::link() throw(GLSLProgramException)
 		throw GLSLProgramException(string("Program link failed:\n") + logString);
 	}
 	else {
-		uniformLocations.clear();
+		//uniformLocations.clear();
 		linked = true;
 	}
 }
@@ -232,8 +232,13 @@ void GLSLProgram::bindFragDataLocation(GLuint location, const char * name)
 
 void GLSLProgram::setUniform(const char *name, float x, float y, float z)
 {
-	GLint loc = getUniformLocation(name);
-	glUniform3f(loc, x, y, z);
+	GLint loc = glGetUniformLocation(handle, name);
+	if (loc >= 0){
+		glUniform3f(loc, x, y, z);
+	}
+	else{
+		printf("Non Existent Uniform : %s \n", name);
+	}
 }
 
 void GLSLProgram::setUniform(const char *name, const vec3 & v)
@@ -241,52 +246,103 @@ void GLSLProgram::setUniform(const char *name, const vec3 & v)
 	this->setUniform(name, v.x, v.y, v.z);
 }
 
+void GLSLProgram::setUniform(const char *name, const ivec3 & v)
+{
+	GLint loc = glGetUniformLocation(handle, name);
+	if (loc >= 0){
+		glUniform3i(loc, v.x, v.y, v.z);
+	}
+	else{
+		printf("Non Existent Uniform : %s \n", name);
+	}
+}
+
 void GLSLProgram::setUniform(const char *name, const vec4 & v)
 {
-	GLint loc = getUniformLocation(name);
-	glUniform4f(loc, v.x, v.y, v.z, v.w);
+	GLint loc = glGetUniformLocation(handle, name);
+	if (loc >= 0){
+		glUniform4f(loc, v.x, v.y, v.z, v.w);
+	}
+	else{
+		printf("Non Existent Uniform : %s \n", name);
+	}
 }
 
 void GLSLProgram::setUniform(const char *name, const vec2 & v)
 {
-	GLint loc = getUniformLocation(name);
-	glUniform2f(loc, v.x, v.y);
+	GLint loc = glGetUniformLocation(handle, name);
+	if (loc >= 0){
+		glUniform2f(loc, v.x, v.y);
+	}
+	else{
+		printf("Non Existent Uniform : %s \n", name);
+	}
 }
 
 void GLSLProgram::setUniform(const char *name, const mat4 & m)
 {
-	GLint loc = getUniformLocation(name);
-	glUniformMatrix4fv(loc, 1, GL_FALSE, &m[0][0]);
+	GLint loc = glGetUniformLocation(handle, name);
+	if (loc >= 0){
+		glUniformMatrix4fv(loc, 1, GL_FALSE, &m[0][0]);
+	}
+	else{
+		printf("Non Existent Uniform : %s \n", name);
+	}
 }
 
 void GLSLProgram::setUniform(const char *name, const mat3 & m)
 {
-	GLint loc = getUniformLocation(name);
-	glUniformMatrix3fv(loc, 1, GL_FALSE, &m[0][0]);
+	GLint loc = glGetUniformLocation(handle, name);
+	if (loc >= 0){
+		glUniformMatrix3fv(loc, 1, GL_FALSE, &m[0][0]);
+	}
+	else{
+		printf("Non Existent Uniform : %s \n", name);
+	}
 }
 
 void GLSLProgram::setUniform(const char *name, float val)
 {
-	GLint loc = getUniformLocation(name);
-	glUniform1f(loc, val);
+	GLint loc = glGetUniformLocation(handle, name);
+	if (loc >= 0){
+		glUniform1f(loc, val);
+	}
+	else{
+		printf("Non Existent Uniform : %s \n", name);
+	}
 }
 
 void GLSLProgram::setUniform(const char *name, int val)
 {
-	GLint loc = getUniformLocation(name);
-	glUniform1i(loc, val);
+	GLint loc = glGetUniformLocation(handle, name);
+	if (loc >= 0){
+		glUniform1i(loc, val);
+	}
+	else{
+		printf("Non Existent Uniform : %s \n", name);
+	}
 }
 
 void GLSLProgram::setUniform(const char *name, GLuint val)
 {
-	GLint loc = getUniformLocation(name);
-	glUniform1ui(loc, val);
+	GLint loc = glGetUniformLocation(handle, name);
+	if (loc >= 0){
+		glUniform1ui(loc, val);
+	}
+	else{
+		printf("Non Existent Uniform : %s \n", name);
+	}
 }
 
 void GLSLProgram::setUniform(const char *name, bool val)
 {
-	int loc = getUniformLocation(name);
-	glUniform1i(loc, val);
+	GLint loc = glGetUniformLocation(handle, name);
+	if (loc >= 0){
+		glUniform1i(loc, val);
+	}
+	else{
+		printf("Non Existent Uniform : %s \n", name);
+	}
 }
 
 void GLSLProgram::printActiveUniforms() {
@@ -381,6 +437,10 @@ const char * GLSLProgram::getTypeString(GLenum type) {
 		return "double";
 	case GL_INT:
 		return "int";
+	case GL_INT_VEC2:
+		return "ivec2";
+	case GL_INT_VEC3:
+		return "ivec3";
 	case GL_UNSIGNED_INT:
 		return "unsigned int";
 	case GL_BOOL:
@@ -425,17 +485,17 @@ void GLSLProgram::validate() throw(GLSLProgramException)
 	}
 }
 
-int GLSLProgram::getUniformLocation(const char * name)
-{
-	std::map<string, int>::iterator pos;
-	pos = uniformLocations.find(name);
-
-	if (pos == uniformLocations.end()) {
-		uniformLocations[name] = glGetUniformLocation(handle, name);
-	}
-
-	return uniformLocations[name];
-}
+//int GLSLProgram::getUniformLocation(const char * name)
+//{
+//	std::map<string, int>::iterator pos;
+//	pos = uniformLocations.find(name);
+//
+//	if (pos == uniformLocations.end()) {
+//		uniformLocations[name] = glGetUniformLocation(handle, name);
+//	}
+//
+//	return uniformLocations[name];
+//}
 
 bool GLSLProgram::fileExists(const string & fileName)
 {

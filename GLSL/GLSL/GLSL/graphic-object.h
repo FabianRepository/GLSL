@@ -45,6 +45,7 @@ public:
 	Material * material;
 };
 
+
 class Statistics_Base{
 public:
 	Statistics_Base()
@@ -91,6 +92,8 @@ public:
 	double max_accumulation_vector_norm;
 	double max_curvature_vector_norm;
 };
+
+
 
 enum ParameterMode{ INPUT, OUTPUT };
 enum PropertyMode { COLOR, NORMAL };

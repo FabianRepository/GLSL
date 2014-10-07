@@ -97,7 +97,7 @@ public:
 	void SetMeshOrientation();
 	void NormalizeByDiameter();
 	void NormalizeByExtremes();
-
+	void Centralize(Point<3> new_center = Point<3>());
 
 	GLuint vertex_position_buffer;
 	GLuint vertex_normal_buffer;

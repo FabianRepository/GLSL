@@ -243,8 +243,9 @@ printf("%d * %ld = %ld\n", ply_nfaces, sizeof(Face), sizeof(Face)*ply_nfaces);
 		vertices[edge_iter->previous_vertex].edge = edge_iter->edge_index;
 	}
 
-	NormalizeByExtremes();
-	//NormalizeByDiameter();
+	//NormalizeByExtremes();
+	NormalizeByDiameter();
+	Centralize();
 	SetMeshOrientation();
 	//ComputeVertexNormalFromPosition();
 

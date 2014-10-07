@@ -45,6 +45,24 @@ void Mesh<Vertex, HalfEdge, Face, Statistics>::SetMeshOrientation() // Use highe
 }
 
 template<typename Vertex, typename HalfEdge, typename Face, typename Statistics>
+void Mesh<Vertex, HalfEdge, Face, Statistics>::Centralize(Point<3> new_center)
+{
+	Point<3> current_center = Point<3>();
+	for (vertex_iterator vertex_iter = vertices.begin(); vertex_iter != vertices.end(); vertex_iter++)
+	{
+		Vertex & vertex = *vertex_iter;
+		current_center += vertex.position;
+	}
+	current_center /= static_cast<double>(vertices.size());
+	Point<3> displacement = new_center - current_center;
+	for (vertex_iterator vertex_iter = vertices.begin(); vertex_iter != vertices.end(); vertex_iter++)
+	{
+		Vertex & vertex = *vertex_iter;
+		vertex.position += displacement;
+	}
+}
+
+template<typename Vertex, typename HalfEdge, typename Face, typename Statistics>
 void Mesh<Vertex, HalfEdge, Face, Statistics>::NormalizeByDiameter()
 {
 	int lowest_vertex_index = -1;

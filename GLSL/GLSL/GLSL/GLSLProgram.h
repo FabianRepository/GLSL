@@ -12,6 +12,7 @@ using std::string;
 #include <glm/glm.hpp>
 using glm::vec2;
 using glm::vec3;
+using glm::ivec3;
 using glm::vec4;
 using glm::mat4;
 using glm::mat3;
@@ -40,9 +41,9 @@ class GLSLProgram
 private:
 	int  handle;
 	bool linked;
-	std::map<string, int> uniformLocations;
+	//std::map<string, int> uniformLocations;
 
-	GLint  getUniformLocation(const char * name);
+	//GLint  getUniformLocation(const char * name);
 	bool fileExists(const string & fileName);
 	string getExtension(const char * fileName);
 
@@ -72,6 +73,7 @@ public:
 	void   setUniform(const char *name, float x, float y, float z);
 	void   setUniform(const char *name, const vec2 & v);
 	void   setUniform(const char *name, const vec3 & v);
+	void   setUniform(const char *name, const ivec3 & v);
 	void   setUniform(const char *name, const vec4 & v);
 	void   setUniform(const char *name, const mat4 & m);
 	void   setUniform(const char *name, const mat3 & m);

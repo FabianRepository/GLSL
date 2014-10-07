@@ -4,7 +4,7 @@
 #include "graphic-object.h"
 #include "GLSLProgram.h"
 
-const mat4 shadowBias = mat4(vec4(0.5f, 0.0f, 0.0f, 0.0f),
+const mat4 texture_coord_transform = mat4(vec4(0.5f, 0.0f, 0.0f, 0.0f),
 							  vec4(0.0f, 0.5f, 0.0f, 0.0f),
 							  vec4(0.0f, 0.0f, 0.5f, 0.0f),
 							  vec4(0.5f, 0.5f, 0.5f, 1.0f));
@@ -12,10 +12,12 @@ const mat4 shadowBias = mat4(vec4(0.5f, 0.0f, 0.0f, 0.0f),
 class  Light{ //: public GraphicObject{
 public:
 	vec3 color;
-	mat4 biased_light_view_projection; // directed towards the scene center
+	mat4 light_view;
+	mat4 light_projection;
+	mat4 texture_coord_transform; // directed towards the scene center
 	virtual void rotateX(float angle) = 0;
 	virtual void rotateY(float angle) = 0;
-	virtual void SetLightViewProjection(vec3 scene_center, float scene_radius) = 0;
+	virtual void SetLightTransformation(vec3 scene_center, float scene_radius) = 0;
 	//void SetupOpenGL();
 	//void DrawOpenGL(Scene * scene);
 	//GLuint position_buffer;
@@ -28,7 +30,7 @@ public:
 	vec3 position;
 	void rotateX(float angle);
 	void rotateY(float angle);
-	void SetLightViewProjection(vec3 scene_center, float scene_radius);
+	void SetLightTransformation(vec3 scene_center, float scene_radius);
 };
 
 class DirectionalLight : public Light{
@@ -36,7 +38,7 @@ public:
 	vec3 direction;
 	void rotateX(float angle);
 	void rotateY(float angle);
-	void SetLightViewProjection(vec3 scene_center, float scene_radius);
+	void SetLightTransformation(vec3 scene_center, float scene_radius);
 };
 //
 //class Material {
@@ -140,13 +142,16 @@ public:
 
 	//double current_time;
 	//
-	void Initialize(const int width, const int height, const int p_shadow_map_width, const int p_shadow_map_height, const float p_radius, const vec3 p_center);
+
+
+	void Initialize(const int p_width, const int p_height, const int p_shadow_map_width, const int p_shadow_map_height, const float p_radius, const vec3 p_center, const vec3 p_ambient_light);
 	Camera camera;
 	void SetWorldToCamera();
 	void SetProjectionMatrix();
 	void SetMVP();
 	void SetupOpenGL();
 	void SetShadowBuffer();
+	void SetOffsetTexture(int size, int samplesU, int samplesV);
 	void DrawOpenGL();
 
 	PointLightList point_lights;
@@ -155,13 +160,24 @@ public:
 	//int num_graphic_objects;
 	ShadingGroupList shading_groups;
 
+	int width;
+	int height;
+
 	int shadow_map_width;
 	int shadow_map_height;
-	GLuint shadow_buffer;
+	GLuint shadow_frame_buffer_handle;
+	GLuint shadow_depth_buffer;
+
+	int offset_buffer_side;
+	int offset_buffer_u;
+	int offset_buffer_v;
+	float shadow_sampling_radius;
+	GLuint offset_buffer;
 
 	mat4 projection_matrix;
 	mat4 world_to_camera;
 	mat4 mvp;
+	vec3 ambient_light;
 
 	vec3 center;
 	float radius;

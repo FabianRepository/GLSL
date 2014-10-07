@@ -8,24 +8,28 @@ using std::string;
 
 const int width = 500;
 const int height = 500;
-const int shadowMapWidth = 512;
-const int shadowMapHeight = 512;
+const int shadowMapWidth = 1200;
+const int shadowMapHeight = 1200;
 Window main_window;
 Scene scene;
 
 int main(int argc, char *argv[])
 {
-	if (argc != 2)
+	if (argc != 3)
 	{
-		printf("GLSL <mesh_name>\n");
+		printf("GLSL <mesh_name> <mesh_name>\n");
 		return 0;
 	}
 
 	//Initialize Scene
-	scene.Initialize(width, height, shadowMapWidth, shadowMapHeight, 5.f, vec3(0.f, 0.f, 0.f));
+	scene.Initialize(width, height, shadowMapWidth, shadowMapHeight, 5.f, vec3(0.f, 0.f, 0.f), vec3(0.0f, 0.0f, 0.0f));
+
+
 	Mesh<Vertex_Base, HalfEdge_Base, Face_Base, Statistics_Base> * mesh = new Mesh<Vertex_Base, HalfEdge_Base, Face_Base, Statistics_Base>();
 	mesh->ConstructMeshFromPlyFile(argv[1]);
 	mesh->GeometryInitialization();
+	mesh->object_to_world = glm::translate(mat4(1.f), vec3(0.f, 0.f,-1.f));
+	mesh->normal_matrix = glm::inverse(glm::transpose(mat3(mesh->object_to_world)));
 
 	Material * material = new Material();
 	material->ambient[0] = 0.0f; material->ambient[1] = 0.0f; material->ambient[2] = 0.0f;
@@ -36,9 +40,20 @@ int main(int argc, char *argv[])
 
 	mesh->material = material;
 
-	//ShadingGroup * shading_group = new ShadingGroup("shaders/shadowmap.vs", "shaders/shadowmap.fs");
-	ShadingGroup * shading_group = new ShadingGroup("shaders/diffuse_reflection.vert", "shaders/basic.frag");
+	Mesh<Vertex_Base, HalfEdge_Base, Face_Base, Statistics_Base> * plane = new Mesh<Vertex_Base, HalfEdge_Base, Face_Base, Statistics_Base>();
+	plane->ConstructMeshFromPlyFile(argv[2]);
+	plane->GeometryInitialization();
+	plane->material = material;
+
+	plane->object_to_world = glm::translate(mat4(1.f), vec3(0.f, 0.f, -3.f))*glm::scale(mat4(1.f), vec3(3.f, 3.f, 1.f));
+	plane->normal_matrix = glm::inverse(glm::transpose(mat3(plane->object_to_world)));
+
+	//ShadingGroup * shading_group = new ShadingGroup("shaders/onlyshadow.vs", "shaders/onlyshadow.fs");
+	ShadingGroup * shading_group = new ShadingGroup("shaders/shadowmap.vs", "shaders/shadowmap.fs");
+	//ShadingGroup * shading_group = new ShadingGroup("shaders/shadowmap.vs", "shaders/basic2.frag");
+	//ShadingGroup * shading_group = new ShadingGroup("shaders/diffuse_reflection.vert", "shaders/basic.frag");
 	shading_group->graphic_objects.push_back(mesh);
+	shading_group->graphic_objects.push_back(plane);
 
 	scene.shading_groups.push_back(shading_group);
 
@@ -48,7 +63,7 @@ int main(int argc, char *argv[])
 	
 	DirectionalLight * directional_light = new DirectionalLight;
 	directional_light->color = vec3(1.f, 1.f, 1.f);
-	directional_light->direction = vec3(-1.f, -1.f, -1.f);
+	directional_light->direction = vec3(0.f, 0.f, -1.f);
 
 	scene.directional_lights.push_back(directional_light);
 

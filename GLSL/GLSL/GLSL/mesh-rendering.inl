@@ -32,10 +32,6 @@ void Mesh<Vertex, HalfEdge, Face, Statistics>::SetupOpenGL()
 	glBindVertexBuffer(2, vertex_normal_buffer, 0, sizeof(GLdouble)* 3);
 	glVertexAttribFormat(2, 3, GL_DOUBLE, GL_FALSE, 0);
 	glVertexAttribBinding(2, 2);
-
-	object_to_world = mat4(1.f);
-	normal_matrix = glm::inverse(glm::transpose(mat3(object_to_world)));
-
 }
 
 template<typename Vertex, typename HalfEdge, typename Face, typename Statistics>
@@ -74,7 +70,7 @@ void Mesh<Vertex, HalfEdge, Face, Statistics>::DrawOpenGL(Scene * scene){
 
 	glsl_program->setUniform("object_to_world", object_to_world);
 	glsl_program->setUniform("normal_matrix", normal_matrix);
-	glsl_program->setUniform("shininess", material->shininess);
+	//glsl_program->setUniform("shininess", material->shininess);
 
 	glBindVertexArray(vaoHandle);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, face_index_buffer);

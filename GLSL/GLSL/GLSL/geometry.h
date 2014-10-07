@@ -20,6 +20,8 @@ using glm::mat4;
 using glm::mat3;
 using glm::vec3;
 using glm::vec4;
+using glm::ivec3;
+using glm::ivec2;
 template< int dimension>
 class Point
 {
